@@ -19,6 +19,10 @@ interface CompanionsListProps {
 }
 
 const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) => {
+    console.log(companions?.length);
+console.log(
+  companions?.map(c => c.id)
+);
     return (
         <article className={cn('companion-list', classNames)}>
             <h2 className="font-bold text-3xl">{title}</h2>
@@ -33,7 +37,7 @@ const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) 
                 </TableHeader>
                 <TableBody>
                     {companions?.map(({id, subject, name, topic, duration}) => (
-                        <TableRow key={id}>
+                        <TableRow key={`${id}-${name}`}>
                             <TableCell>
                                 <Link href={`/companions/${id}`}>
                                     <div className="flex items-center gap-2">
