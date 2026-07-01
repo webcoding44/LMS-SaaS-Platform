@@ -4,7 +4,6 @@ import {redirect} from "next/navigation";
 import {newCompanionPermissions} from "@/lib/actions/companion.actions";
 import Image from "next/image";
 import Link from "next/link";
-export const dynamic = "force-dynamic";
 
 const NewCompanion = async () => {
     const { userId } = await auth();
