@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap");
-@import "tailwindcss";
-@import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -12,7 +12,7 @@
   --color-cta-gold: var(--cta-gold);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-bricolage: "Bricolage Grotesque", sans-serif;
+  --font-bricolage: 'Bricolage Grotesque', sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -52,8 +52,8 @@
   --cta: #2c2c2c;
   --cta-gold: #fccc41;
   --radius: 0.625rem;
-  --background: #00156B;
-  --foreground: #FFFFFF;
+  --background: #00156b;
+  --foreground: #ffffff;
   --card: #001e98;
   --card-foreground: #001e98;
   --popover: #001e98;
@@ -61,8 +61,8 @@
   --primary-foreground: #001e98;
   --secondary: #001e98;
   --secondary-foreground: #001e98;
-  --muted: #FFFFFF;
-  --muted-foreground: #FFFFFF;
+  --muted: #ffffff;
+  --muted-foreground: #ffffff;
   --accent: #001e98;
   --accent-foreground: #001e98;
   --destructive: #001e98;
@@ -84,14 +84,13 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-
 body {
   font-family: var(--font-bricolage);
 }
 
 .dark {
-  --background: #00156B;
-  --foreground: #FFFFFF;
+  --background: #00156b;
+  --foreground: #ffffff;
   --card: #001e98;
   --card-foreground: #001e98;
   --popover: #001e98;
@@ -103,8 +102,7 @@ body {
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
   --accent: #001e98;
-  --accent-foreground: #001e98
-  --destructive: #001e98;
+  --accent-foreground: #001e98 --destructive: #001e98;
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
@@ -183,7 +181,7 @@ body {
   }
 
   .companion-section {
-    @apply border-2 border-orange-500 w-2/3 max-sm:w-full flex flex-col gap-4 justify-center items-center rounded-lg;
+    @apply border-2 border-black w-2/3 max-sm:w-full flex flex-col gap-4 justify-center items-center rounded-lg;
   }
 
   .companion-avatar {
