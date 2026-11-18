@@ -8,12 +8,12 @@ export const subjects = [
 ];
 
 export const subjectsColors = {
-  science: "#E5D0FF",
-  maths: "#FFDA6E",
-  language: "#BDE7FF",
-  coding: "#FFC8E4",
-  history: "#FFECC8",
-  economics: "#C8FFDF",
+  science: "#dcebe3",
+  maths: "#f0e7d4",
+  language: "#e1ebee",
+  coding: "#e4ece4",
+  history: "#f0e5d8",
+  economics: "#dfead9",
 };
 
 export const voices = {

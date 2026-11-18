@@ -35,40 +35,40 @@
 }
 
 :root {
-  --primary: #5546c7;
+  --primary: #21695c;
   --primary-foreground: #ffffff;
-  --cta: #30286f;
-  --cta-gold: #e8e4ff;
+  --cta: #174e45;
+  --cta-gold: #e9dfc9;
   --radius: 0.875rem;
-  --background: #f7f8fc;
-  --foreground: #20243a;
+  --background: #f7f8f4;
+  --foreground: #20352f;
   --card: #ffffff;
-  --card-foreground: #20243a;
+  --card-foreground: #20352f;
   --popover: #ffffff;
-  --popover-foreground: #20243a;
-  --secondary: #f0effb;
-  --secondary-foreground: #40358c;
-  --muted: #f0f1f6;
-  --muted-foreground: #62677c;
-  --accent: #f0effb;
-  --accent-foreground: #40358c;
+  --popover-foreground: #20352f;
+  --secondary: #e8f1ec;
+  --secondary-foreground: #24574c;
+  --muted: #eff2ee;
+  --muted-foreground: #5d6b65;
+  --accent: #e8f1ec;
+  --accent-foreground: #24574c;
   --destructive: #b42338;
-  --border: #e3e5ee;
-  --input: #e3e5ee;
-  --ring: #796de0;
-  --chart-1: #5546c7;
-  --chart-2: #208f83;
-  --chart-3: #ed9e49;
-  --chart-4: #c65c85;
-  --chart-5: #5582c5;
+  --border: #dfe6e1;
+  --input: #dfe6e1;
+  --ring: #378778;
+  --chart-1: #21695c;
+  --chart-2: #c28b4d;
+  --chart-3: #6f927c;
+  --chart-4: #b56e5b;
+  --chart-5: #87976a;
   --sidebar: #ffffff;
-  --sidebar-foreground: #20243a;
-  --sidebar-primary: #5546c7;
+  --sidebar-foreground: #20352f;
+  --sidebar-primary: #21695c;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f0effb;
-  --sidebar-accent-foreground: #40358c;
-  --sidebar-border: #e3e5ee;
-  --sidebar-ring: #796de0;
+  --sidebar-accent: #e8f1ec;
+  --sidebar-accent-foreground: #24574c;
+  --sidebar-border: #dfe6e1;
+  --sidebar-ring: #378778;
 }
 
 * {
@@ -164,7 +164,7 @@ body {
   }
 
   .cta-section {
-    @apply flex w-full flex-col items-start gap-4 rounded-2xl border border-[#e4e0ff] bg-[#f0effb] p-6 text-left text-foreground lg:max-w-[330px];
+    @apply flex w-full flex-col items-start gap-4 rounded-2xl border border-[#dce9e2] bg-[#edf4ef] p-6 text-left text-foreground lg:max-w-[330px];
   }
 
   .cta-badge {

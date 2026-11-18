@@ -152,7 +152,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                     </button>
                     <div className="flex items-center justify-between rounded-xl border border-border bg-white px-4 py-3 text-sm">
                         <span className="text-muted-foreground">Session status</span>
-                        <span role="status" aria-live="polite" className={cn("font-semibold", callStatus === CallStatus.ACTIVE ? "text-[#187c72]" : callStatus === CallStatus.CONNECTING ? "text-primary" : "text-muted-foreground")}>
+                        <span role="status" aria-live="polite" className={cn("font-semibold", callStatus === CallStatus.ACTIVE ? "text-[#21695c]" : callStatus === CallStatus.CONNECTING ? "text-primary" : "text-muted-foreground")}>
                             {callStatus === CallStatus.ACTIVE ? (isMuted ? "Muted" : "Live") : callStatus === CallStatus.CONNECTING ? "Connecting" : callStatus === CallStatus.FINISHED ? "Ended" : "Ready"}
                         </span>
                     </div>
