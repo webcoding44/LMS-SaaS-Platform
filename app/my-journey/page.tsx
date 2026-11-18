@@ -43,17 +43,17 @@ const Profile = async () => {
           </div>
         </div>
         <div className="grid w-full grid-cols-3 gap-3 sm:w-auto">
-          <div className="min-w-[110px] rounded-xl bg-[#e8f1ec] p-4 max-sm:min-w-0 max-sm:p-3">
+          <div className="min-w-[110px] rounded-xl bg-[#dce9de] p-4 max-sm:min-w-0 max-sm:p-3">
             <Check size={18} className="mb-3 text-primary" />
             <p className="text-2xl font-bold">{sessionCount}</p>
             <p className="mt-1 text-xs text-muted-foreground">Lessons completed</p>
           </div>
-          <div className="min-w-[110px] rounded-xl bg-[#e6efeb] p-4 max-sm:min-w-0 max-sm:p-3">
+          <div className="min-w-[110px] rounded-xl bg-[#d8e8e2] p-4 max-sm:min-w-0 max-sm:p-3">
             <Plus size={18} className="mb-3 text-[#2c7668]" />
             <p className="text-2xl font-bold">{companions.length}</p>
             <p className="mt-1 text-xs text-muted-foreground">Companions made</p>
           </div>
-          <div className="min-w-[110px] rounded-xl bg-[#f3ede1] p-4 max-sm:min-w-0 max-sm:p-3">
+          <div className="min-w-[110px] rounded-xl bg-[#efe4d2] p-4 max-sm:min-w-0 max-sm:p-3">
             <Bookmark size={18} className="mb-3 text-[#805a2b]" />
             <p className="text-2xl font-bold">{bookmarkedCompanions.length}</p>
             <p className="mt-1 text-xs text-muted-foreground">Saved companions</p>
@@ -82,7 +82,7 @@ const Profile = async () => {
         />
       </div>
       {companions.length === 0 && (
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#dce9e2] bg-[#edf4ef] p-5">
+        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#cbdccd] bg-[#dce9de] p-5">
           <div>
             <h2 className="font-bold">Make learning personal</h2>
             <p className="mt-1 text-sm text-muted-foreground">Create a companion tailored to the topics you want to learn.</p>

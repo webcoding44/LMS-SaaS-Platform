@@ -48,10 +48,10 @@ const CompanionCard = ({
     }
   };
   return (
-    <article className="companion-card">
+    <article className="companion-card" style={{ backgroundColor: color }}>
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <div className="subject-icon" style={{ backgroundColor: color }}>
+          <div className="subject-icon bg-card shadow-sm">
             <Image src={`/icons/${subject}.svg`} alt="" width={24} height={24} />
           </div>
           <div className="subject-badge">{subject}</div>

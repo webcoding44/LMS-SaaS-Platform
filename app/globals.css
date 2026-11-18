@@ -40,34 +40,34 @@
   --cta: #174e45;
   --cta-gold: #e9dfc9;
   --radius: 0.875rem;
-  --background: #f0f3ed;
+  --background: #e8eee6;
   --foreground: #20352f;
-  --card: #fbfcf8;
+  --card: #f9faf4;
   --card-foreground: #20352f;
-  --popover: #fbfcf8;
+  --popover: #f9faf4;
   --popover-foreground: #20352f;
-  --secondary: #e1eee5;
+  --secondary: #dce9de;
   --secondary-foreground: #24574c;
-  --muted: #e9eee8;
+  --muted: #dfe8df;
   --muted-foreground: #5d6b65;
-  --accent: #e1eee5;
+  --accent: #dce9de;
   --accent-foreground: #24574c;
   --destructive: #b42338;
-  --border: #dce5dc;
-  --input: #dce5dc;
+  --border: #d3dfd4;
+  --input: #d3dfd4;
   --ring: #378778;
   --chart-1: #21695c;
   --chart-2: #c28b4d;
   --chart-3: #6f927c;
   --chart-4: #b56e5b;
   --chart-5: #87976a;
-  --sidebar: #fbfcf8;
+  --sidebar: #f9faf4;
   --sidebar-foreground: #20352f;
   --sidebar-primary: #21695c;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e1eee5;
+  --sidebar-accent: #dce9de;
   --sidebar-accent-foreground: #24574c;
-  --sidebar-border: #dce5dc;
+  --sidebar-border: #d3dfd4;
   --sidebar-ring: #378778;
 }
 
@@ -164,7 +164,7 @@ body {
   }
 
   .cta-section {
-    @apply flex w-full flex-col items-start gap-4 rounded-2xl border border-[#dce9e2] bg-[#edf4ef] p-6 text-left text-foreground lg:max-w-[330px];
+    @apply flex w-full flex-col items-start gap-4 rounded-2xl border border-[#cbdccd] bg-[#dce9de] p-6 text-left text-foreground lg:max-w-[330px];
   }
 
   .cta-badge {
