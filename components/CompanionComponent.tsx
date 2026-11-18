@@ -20,6 +20,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
     const [messages, setMessages] = useState<SavedMessage[]>([]);
+    const [callError, setCallError] = useState("");
 
     const lottieRef = useRef<LottieRefCurrentProps>(null);
 
@@ -34,11 +35,17 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
     }, [isSpeaking, lottieRef])
 
     useEffect(() => {
-        const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
+        const onCallStart = () => {
+            setCallError("");
+            setIsMuted(vapi.isMuted());
+            setCallStatus(CallStatus.ACTIVE);
+        };
 
         const onCallEnd = () => {
             setCallStatus(CallStatus.FINISHED);
-            addToSessionHistory(companionId)
+            void addToSessionHistory(companionId).catch(() => {
+                setCallError("Your lesson ended, but we couldn't save it to your journey.");
+            });
         }
 
         const onMessage = (message: Message) => {
@@ -51,7 +58,10 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
         const onSpeechStart = () => setIsSpeaking(true);
         const onSpeechEnd = () => setIsSpeaking(false);
 
-        const onError = (error: Error) => console.log('Error', error);
+        const onError = (error: Error) => {
+            setCallStatus(CallStatus.INACTIVE);
+            setCallError(error.message || "The voice session couldn't connect. Please try again.");
+        };
 
         vapi.on('call-start', onCallStart);
         vapi.on('call-end', onCallEnd);
@@ -68,7 +78,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
             vapi.off('speech-start', onSpeechStart);
             vapi.off('speech-end', onSpeechEnd);
         }
-    }, []);
+    }, [companionId]);
 
     const toggleMicrophone = () => {
         const isMuted = vapi.isMuted();
@@ -77,16 +87,20 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
     }
 
     const handleCall = async () => {
+        setCallError("");
         setCallStatus(CallStatus.CONNECTING)
 
         const assistantOverrides = {
             variableValues: { subject, topic, style },
-            clientMessages: ["transcript"],
-            serverMessages: [],
+            clientMessages: "transcript" as const,
         }
 
-        // @ts-expect-error
-        vapi.start(configureAssistant(voice, style), assistantOverrides)
+        try {
+            await vapi.start(configureAssistant(voice, style), assistantOverrides)
+        } catch (error) {
+            setCallStatus(CallStatus.INACTIVE);
+            setCallError(error instanceof Error ? error.message : "The voice session couldn't connect. Please try again.");
+        }
     }
 
     const handleDisconnect = () => {
@@ -95,17 +109,17 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
     }
 
     return (
-        <section className="flex flex-col h-[70vh]">
-            <section className="flex gap-8 max-sm:flex-col">
+        <section className="flex min-h-[70vh] flex-col gap-5">
+            <section className="flex gap-5 max-md:flex-col">
                 <div className="companion-section">
                     <div className="companion-avatar" style={{ backgroundColor: getSubjectColor(subject)}}>
                         <div
                             className={
                             cn(
-                                'absolute transition-opacity duration-1000', callStatus === CallStatus.FINISHED || callStatus === CallStatus.INACTIVE ? 'opacity-1001' : 'opacity-0', callStatus === CallStatus.CONNECTING && 'opacity-100 animate-pulse'
+                                'absolute transition-opacity duration-500', callStatus === CallStatus.FINISHED || callStatus === CallStatus.INACTIVE ? 'opacity-100' : 'opacity-0', callStatus === CallStatus.CONNECTING && 'opacity-100 animate-pulse'
                             )
                         }>
-                            <Image src={`/icons/${subject}.svg`} alt={subject} width={150} height={150} className="max-sm:w-fit" />
+                            <Image src={`/icons/${subject}.svg`} alt="" width={112} height={112} className="max-sm:w-20" />
                         </div>
 
                         <div className={cn('absolute transition-opacity duration-1000', callStatus === CallStatus.ACTIVE ? 'opacity-100': 'opacity-0')}>
@@ -117,35 +131,48 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                             />
                         </div>
                     </div>
-                    <p className="font-bold text-2xl">{name}</p>
+                    <div className="text-center">
+                        <p className="font-bold text-xl">{name}</p>
+                        <p className="mt-1 text-sm text-muted-foreground">{topic}</p>
+                    </div>
                 </div>
 
                 <div className="user-section">
                     <div className="user-avatar">
-                        <Image src={userImage} alt={userName} width={130} height={130} className="rounded-lg" />
-                        <p className="font-bold text-2xl">
+                        <Image src={userImage} alt="" width={88} height={88} className="size-[88px] rounded-full object-cover" />
+                        <p className="font-semibold text-lg">
                             {userName}
                         </p>
                     </div>
-                    <button className="btn-mic" onClick={toggleMicrophone} disabled={callStatus !== CallStatus.ACTIVE}>
-                        <Image src={isMuted ? '/icons/mic-off.svg' : '/icons/mic-on.svg'} alt="mic" width={36} height={36} />
-                        <p className="max-sm:hidden">
+                    <button type="button" className="btn-mic" onClick={toggleMicrophone} disabled={callStatus !== CallStatus.ACTIVE} aria-pressed={isMuted}>
+                        <Image src={isMuted ? '/icons/mic-off.svg' : '/icons/mic-on.svg'} alt="" width={30} height={30} />
+                        <span>
                             {isMuted ? 'Turn on microphone' : 'Turn off microphone'}
-                        </p>
+                        </span>
                     </button>
-                    <button className={cn('rounded-lg py-2 cursor-pointer transition-colors w-full text-white', callStatus ===CallStatus.ACTIVE ? 'bg-red-700' : 'bg-primary', callStatus === CallStatus.CONNECTING && 'animate-pulse')} onClick={callStatus === CallStatus.ACTIVE ? handleDisconnect : handleCall}>
-                        {callStatus === CallStatus.ACTIVE
-                        ? "End Session"
-                        : callStatus === CallStatus.CONNECTING
-                            ? 'Connecting'
-                        : 'Start Session'
-                        }
+                    <div className="flex items-center justify-between rounded-xl border border-border bg-white px-4 py-3 text-sm">
+                        <span className="text-muted-foreground">Session status</span>
+                        <span role="status" aria-live="polite" className={cn("font-semibold", callStatus === CallStatus.ACTIVE ? "text-[#187c72]" : callStatus === CallStatus.CONNECTING ? "text-primary" : "text-muted-foreground")}>
+                            {callStatus === CallStatus.ACTIVE ? (isMuted ? "Muted" : "Live") : callStatus === CallStatus.CONNECTING ? "Connecting" : callStatus === CallStatus.FINISHED ? "Ended" : "Ready"}
+                        </span>
+                    </div>
+                    {callError && <p role="alert" className="text-sm leading-5 text-destructive">{callError}</p>}
+                    <button
+                        type="button"
+                        className={cn('btn-primary w-full', callStatus === CallStatus.ACTIVE && 'bg-destructive hover:bg-destructive/90')}
+                        onClick={callStatus === CallStatus.ACTIVE ? handleDisconnect : handleCall}
+                        disabled={callStatus === CallStatus.CONNECTING}
+                    >
+                        {callStatus === CallStatus.ACTIVE ? "End lesson" : callStatus === CallStatus.CONNECTING ? "Connecting…" : callStatus === CallStatus.FINISHED ? "Start another lesson" : "Start lesson"}
                     </button>
                 </div>
             </section>
 
-            <section className="transcript">
+            <section className="transcript" aria-label="Lesson transcript" aria-live="polite">
                 <div className="transcript-message no-scrollbar">
+                    {messages.length === 0 && (
+                        <p className="m-auto text-center text-sm text-muted-foreground">Your conversation will appear here when the lesson begins.</p>
+                    )}
                     {messages.map((message, index) => {
                         if(message.role === 'assistant') {
                             return (
@@ -158,7 +185,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                 </p>
                             )
                         } else {
-                           return <p key={index} className="text-primary max-sm:text-sm">
+                           return <p key={index} className="font-medium text-primary max-sm:text-sm">
                                 {userName}: {message.content}
                             </p>
                         }

@@ -1,13 +1,15 @@
 "use client"
 
+import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { useRouter } from "next/navigation"
+import { LoaderCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -24,7 +26,6 @@ import {
 import {subjects} from "@/constants";
 import {Textarea} from "@/components/ui/textarea";
 import {createCompanion} from "@/lib/actions/companion.actions";
-import {redirect} from "next/navigation";
 
 const formSchema = z.object({
     name: z.string().min(1, { message: 'Companion is required.'}),
@@ -32,10 +33,14 @@ const formSchema = z.object({
     topic: z.string().min(1, { message: 'Topic is required.'}),
     voice: z.string().min(1, { message: 'Voice is required.'}),
     style: z.string().min(1, { message: 'Style is required.'}),
-    duration: z.coerce.number().min(1, { message: 'Duration is required.'}),
+    duration: z.coerce.number()
+        .min(1, { message: 'Duration is required.'})
+        .max(120, { message: 'Choose a lesson length of 120 minutes or less.'}),
 })
 
 const CompanionForm = () => {
+    const router = useRouter()
+    const [submitError, setSubmitError] = useState("")
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -49,19 +54,19 @@ const CompanionForm = () => {
     })
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        const companion = await createCompanion(values);
-
-        if(companion) {
-            redirect(`/companions/${companion.id}`);
-        } else {
-            console.log('Failed to create a companion');
-            redirect('/');
+        setSubmitError("")
+        try {
+            const companion = await createCompanion(values)
+            router.push(`/companions/${companion.id}`)
+        } catch (error) {
+            setSubmitError(error instanceof Error ? error.message : "We couldn't create your companion. Please try again.")
         }
     }
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 rounded-2xl border border-border bg-white p-6 shadow-sm max-sm:p-4">
+                <div className="grid gap-5 sm:grid-cols-2">
                 <FormField
                     control={form.control}
                     name="name"
@@ -70,7 +75,7 @@ const CompanionForm = () => {
                             <FormLabel>Companion name</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="Enter the companion name"
+                                    placeholder="e.g. Nova"
                                     {...field}
                                     className="input"
                                 />
@@ -116,10 +121,11 @@ const CompanionForm = () => {
                     name="topic"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>What should the companion help with?</FormLabel>
+                            <FormLabel>What should your companion teach?</FormLabel>
                             <FormControl>
                                 <Textarea
-                                    placeholder="Ex. Derivates & Integrals"
+                                    placeholder="Describe a topic, skill, or question to explore"
+                                    rows={3}
                                     {...field}
                                     className="input"
                                 />
@@ -197,10 +203,12 @@ const CompanionForm = () => {
                     name="duration"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Estimated session duration in minutes</FormLabel>
+                            <FormLabel>Lesson length (minutes)</FormLabel>
                             <FormControl>
                                 <Input
                                     type="number"
+                                    min={1}
+                                    max={120}
                                     placeholder="15"
                                     {...field}
                                     className="input"
@@ -210,7 +218,13 @@ const CompanionForm = () => {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" className="w-full cursor-pointer">Build Your Companion</Button>
+                </div>
+                <p className="text-xs leading-5 text-muted-foreground">Choose a voice and teaching style that make learning feel comfortable for you.</p>
+                {submitError && <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-destructive">{submitError}</p>}
+                <Button type="submit" disabled={form.formState.isSubmitting} className="btn-primary w-full">
+                    {form.formState.isSubmitting && <LoaderCircle size={16} className="animate-spin" aria-hidden="true" />}
+                    {form.formState.isSubmitting ? "Creating your companion…" : "Create companion"}
+                </Button>
             </form>
         </Form>
     )

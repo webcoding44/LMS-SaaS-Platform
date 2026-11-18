@@ -40,6 +40,7 @@ interface GetAllCompanions {
   page?: number;
   subject?: string | string[];
   topic?: string | string[];
+  sort?: "recommended" | "name-asc" | "name-desc";
 }
 
 interface BuildClient {

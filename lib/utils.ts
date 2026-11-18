@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const getSubjectColor = (subject: string) => {
-  return subjectsColors[subject as keyof typeof subjectsColors];
+  return subjectsColors[subject as keyof typeof subjectsColors] ?? "#eeeff5";
 };
 
 export const configureAssistant = (voice: string, style: string) => {
@@ -54,8 +54,7 @@ export const configureAssistant = (voice: string, style: string) => {
         },
       ],
     },
-    clientMessages: [],
-    serverMessages: [],
+    clientMessages: "transcript",
   };
   return vapiAssistant;
 };

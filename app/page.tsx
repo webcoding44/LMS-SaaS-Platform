@@ -6,13 +6,16 @@ import {
   getRecentSessions,
 } from "@/lib/actions/companion.actions";
 import { getSubjectColor } from "@/lib/utils";
+import Link from "next/link";
+import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
 const Page = async () => {
-  const companions = await getAllCompanions({ limit: 3 });
-
-  const recentSessions = await getRecentSessions(10);
+  const [companions, recentSessions] = await Promise.all([
+    getAllCompanions({ limit: 3 }),
+    getRecentSessions(10),
+  ]);
 
   const recentSessionsCompanions = Array.from(
     new Map(
@@ -22,9 +25,32 @@ const Page = async () => {
 
   return (
     <main>
-      <h1>Popular Companions</h1>
+      <section className="flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-[#e4e0ff] bg-gradient-to-br from-white via-white to-[#eeecff] p-8 shadow-sm max-sm:p-6">
+        <div className="max-w-2xl space-y-3">
+          <p className="flex items-center gap-2 text-sm font-semibold text-primary"><Sparkles size={16} /> A LITTLE MORE CURIOUS, EVERY DAY</p>
+          <h1 className="text-4xl leading-tight max-sm:text-3xl">Learn something new, <span className="text-primary">your way.</span></h1>
+          <p className="max-w-xl text-base leading-7 text-muted-foreground">Meet your AI learning companion and turn the subjects you care about into thoughtful voice conversations.</p>
+          <div className="flex flex-wrap gap-3 pt-2">
+            <Link href="/companions" className="btn-primary"><BookOpen size={17} /> Explore companions</Link>
+            <Link href="/companions/new" className="btn-secondary">Create a companion <ArrowRight size={16} /></Link>
+          </div>
+        </div>
+        <div aria-hidden="true" className="hidden size-44 shrink-0 items-center justify-center rounded-full bg-[#e6e2ff] text-primary lg:flex">
+          <div className="flex size-32 items-center justify-center rounded-full border border-white bg-white shadow-sm">
+            <BookOpen size={54} strokeWidth={1.5} />
+          </div>
+        </div>
+      </section>
 
-      <section className="home-section">
+      <section className="space-y-5">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-bold tracking-tight">Popular companions</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Find a friendly guide for whatever you want to explore.</p>
+          </div>
+          <Link href="/companions" className="hidden items-center gap-1 text-sm font-semibold text-primary hover:underline sm:flex">Browse all <ArrowRight size={15} /></Link>
+        </div>
+        <div className="companions-grid">
         {companions.map((companion) => (
           <CompanionCard
             key={companion.id}
@@ -32,13 +58,14 @@ const Page = async () => {
             color={getSubjectColor(companion.subject)}
           />
         ))}
+        </div>
       </section>
 
-      <section className="home-section">
+      <section className="flex flex-col items-start gap-5 lg:flex-row">
         <CompanionsList
           title="Recently completed sessions"
           companions={recentSessionsCompanions}
-          classNames="w-2/3 max-lg:w-full"
+          classNames="lg:flex-1"
         />
         <CTA />
       </section>

@@ -10,8 +10,8 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "AI Teaching Platform",
-  description: "Real-time AI Teaching Platform",
+  title: "Learnmate | AI learning companions",
+  description: "Build a learning habit with personal, voice-powered AI companions.",
 };
 
 export default function RootLayout({
@@ -22,7 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${bricolage.variable} antialiased`}>
-        <ClerkProvider appearance={{ variables: { colorPrimary: '#fe5933' }} }>
+        <ClerkProvider appearance={{ variables: {
+          colorPrimary: "#5546c7",
+          colorBackground: "#ffffff",
+          colorText: "#20243a",
+          colorInputBackground: "#ffffff",
+          colorInputText: "#20243a",
+        } }}>
           <Navbar />
           {children}
         </ClerkProvider>

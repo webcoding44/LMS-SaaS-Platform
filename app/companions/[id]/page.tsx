@@ -14,33 +14,34 @@ const CompanionSession = async ({ params }: CompanionSessionPageProps) => {
     const companion = await getCompanion(id);
     const user = await currentUser();
 
-    const { name, subject, title, topic, duration } = companion;
+    const { name, subject, topic, duration } = companion;
 
     if(!user) redirect('/sign-in');
     if(!name) redirect('/companions')
 
     return (
         <main>
-            <article className="flex rounded-border justify-between p-6 max-md:flex-col">
-                <div className="flex items-center gap-2">
-                    <div className="size-[72px] flex items-center justify-center rounded-lg max-md:hidden" style={{ backgroundColor: getSubjectColor(subject)}}>
-                        <Image src={`/icons/${subject}.svg`} alt={subject} width={35} height={35} />
+            <article className="rounded-border flex flex-wrap items-center justify-between gap-5 p-5 sm:p-6">
+                <div className="flex min-w-0 items-center gap-4">
+                    <div className="subject-icon size-14" style={{ backgroundColor: getSubjectColor(subject)}}>
+                        <Image src={`/icons/${subject}.svg`} alt="" width={28} height={28} />
                     </div>
 
-                    <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-2">
-                            <p className="font-bold text-2xl">
+                    <div className="min-w-0 space-y-2">
+                        <div className="flex flex-wrap items-center gap-2">
+                            <h1 className="text-2xl">
                                 {name}
-                            </p>
-                            <div className="subject-badge max-sm:hidden">
+                            </h1>
+                            <div className="subject-badge">
                                 {subject}
                             </div>
                         </div>
-                        <p className="text-lg">{topic}</p>
+                        <p className="text-sm text-muted-foreground">{topic}</p>
                     </div>
                 </div>
-                <div className="items-start text-2xl max-md:hidden">
-                    {duration} minutes
+                <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                    <Image src="/icons/clock.svg" alt="" width={16} height={16} />
+                    {duration} minute lesson
                 </div>
             </article>
 

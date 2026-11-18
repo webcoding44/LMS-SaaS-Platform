@@ -2,7 +2,6 @@
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -16,43 +15,41 @@ interface CompanionsListProps {
     title: string;
     companions?: Companion[];
     classNames?: string;
+    emptyMessage?: string;
+    emptyAction?: { href: string; label: string };
 }
 
-const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) => {
-    console.log(companions?.length);
-console.log(
-  companions?.map(c => c.id)
-);
+const CompanionsList = ({ title, companions, classNames, emptyMessage, emptyAction }: CompanionsListProps) => {
     return (
         <article className={cn('companion-list', classNames)}>
-            <h2 className="font-bold text-3xl">{title}</h2>
+            <h2 className="mb-4 text-xl font-bold tracking-tight">{title}</h2>
 
-            <Table>
+            {companions?.length ? <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="text-lg w-2/3">Lessons</TableHead>
-                        <TableHead className="text-lg">Subject</TableHead>
-                        <TableHead className="text-lg text-right">Duration</TableHead>
+                        <TableHead className="w-2/3">Lesson</TableHead>
+                        <TableHead>Subject</TableHead>
+                        <TableHead className="text-right">Duration</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {companions?.map(({id, subject, name, topic, duration}) => (
-                        <TableRow key={`${id}-${name}`}>
+                    {companions?.map(({id, subject, name, topic, duration}, index) => (
+                        <TableRow key={`${id}-${name}-${index}`} className="hover:bg-muted/50">
                             <TableCell>
                                 <Link href={`/companions/${id}`}>
-                                    <div className="flex items-center gap-2">
-                                        <div className="size-[72px] flex items-center justify-center rounded-lg max-md:hidden" style={{ backgroundColor: getSubjectColor(subject) }}>
+                                    <div className="flex items-center gap-3">
+                                        <div className="subject-icon max-md:hidden" style={{ backgroundColor: getSubjectColor(subject) }}>
                                             <Image
                                                 src={`/icons/${subject}.svg`}
-                                                alt={subject}
-                                                width={35}
-                                                height={35} />
+                                                alt=""
+                                                width={24}
+                                                height={24} />
                                         </div>
-                                        <div className="flex flex-col gap-2">
-                                            <p className="font-bold text-2xl">
+                                        <div className="flex min-w-0 flex-col gap-1">
+                                            <p className="truncate font-semibold text-foreground">
                                                 {name}
                                             </p>
-                                            <p className="text-lg">
+                                            <p className="line-clamp-1 text-sm text-muted-foreground">
                                                 {topic}
                                             </p>
                                         </div>
@@ -64,27 +61,32 @@ console.log(
                                     {subject}
                                 </div>
                                 <div className="flex items-center justify-center rounded-lg w-fit p-2 md:hidden" style={{backgroundColor: getSubjectColor(subject)}}>
-                            <Image
-                                src={`/icons/${subject}.svg`}
-                                alt={subject}
-                                width={18}
-                                height={18}
-                            />
+                            <Image src={`/icons/${subject}.svg`} alt="" width={18} height={18} />
                                 </div>
                             </TableCell>
                             <TableCell>
                                 <div className="flex items-center gap-2 w-full justify-end">
-                                    <p className="text-2xl">
+                            <p className="text-sm font-medium">
                                         {duration} {' '}
-                                        <span className="max-md:hidden">mins</span>
+                                <span>min</span>
                                     </p>
-                                    <Image src="/icons/clock.svg" alt="minutes" width={14} height={14} className="md:hidden" />
                                 </div>
                             </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
-            </Table>
+            </Table> : (
+                <div className="rounded-xl bg-muted/60 px-4 py-8 text-center">
+                    <p className="text-sm leading-6 text-muted-foreground">
+                        {emptyMessage || "Once you complete a lesson, it will show up here."}
+                    </p>
+                    {emptyAction && (
+                        <Link className="mt-4 inline-flex text-sm font-semibold text-primary hover:underline" href={emptyAction.href}>
+                            {emptyAction.label}
+                        </Link>
+                    )}
+                </div>
+            )}
         </article>
     )
 }

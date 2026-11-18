@@ -2,50 +2,45 @@
 
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {useEffect, useState} from "react";
-import Image from "next/image";
-import {formUrlQuery, removeKeysFromUrlQuery} from "@jsmastery/utils";
+import { Search } from "lucide-react";
 
 const SearchInput = () => {
     const pathname = usePathname();
     const router = useRouter();
     const searchParams = useSearchParams();
     const query = searchParams.get('topic') || '';
-
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, setSearchQuery] = useState(query);
 
     useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {
-            if(searchQuery) {
-                const newUrl = formUrlQuery({
-                    params: searchParams.toString(),
-                    key: "topic",
-                    value: searchQuery,
-                });
+        setSearchQuery(query);
+    }, [query]);
 
-                router.push(newUrl, { scroll: false });
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            const params = new URLSearchParams(searchParams.toString());
+            if (searchQuery.trim()) {
+                params.set("topic", searchQuery.trim());
             } else {
-                if(pathname === '/companions') {
-                    const newUrl = removeKeysFromUrlQuery({
-                        params: searchParams.toString(),
-                        keysToRemove: ["topic"],
-                    });
-
-                    router.push(newUrl, { scroll: false });
-                }
+                params.delete("topic");
             }
-        }, 500)
+            const queryString = params.toString();
+            router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
+        }, 350);
+        return () => clearTimeout(timer);
     }, [searchQuery, router, searchParams, pathname]);
 
     return (
-        <div className="relative border border-black rounded-lg items-center flex gap-2 px-2 py-1 h-fit">
-            <Image src="/icons/search.svg" alt="search" width={15} height={15} />
+        <label className="flex h-11 min-w-0 items-center gap-2 rounded-xl border border-input bg-white px-3 shadow-sm focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10">
+            <Search size={17} className="shrink-0 text-muted-foreground" aria-hidden="true" />
             <input
-                placeholder="Search companions..."
-                className="outline-none"
+                type="search"
+                aria-label="Search companions by name or topic"
+                placeholder="Search by name or topic"
+                className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
             />
-        </div>
+        </label>
     )
 }
 export default SearchInput

@@ -1,9 +1,9 @@
 "use client";
-import { removeBookmark } from "@/lib/actions/companion.actions";
-import { addBookmark } from "@/lib/actions/companion.actions";
+import { removeBookmark, addBookmark } from "@/lib/actions/companion.actions";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 interface CompanionCardProps {
   id: string;
@@ -25,46 +25,70 @@ const CompanionCard = ({
   bookmarked,
 }: CompanionCardProps) => {
   const pathname = usePathname();
+  const [isBookmarked, setIsBookmarked] = useState(bookmarked);
+  const [isSavingBookmark, setIsSavingBookmark] = useState(false);
+  const [bookmarkError, setBookmarkError] = useState("");
+
   const handleBookmark = async () => {
-    if (bookmarked) {
-      await removeBookmark(id, pathname);
-    } else {
-      await addBookmark(id, pathname);
+    setIsSavingBookmark(true);
+    setBookmarkError("");
+    try {
+      if (isBookmarked) {
+        await removeBookmark(id, pathname);
+      } else {
+        await addBookmark(id, pathname);
+      }
+      setIsBookmarked(!isBookmarked);
+    } catch (error) {
+      setBookmarkError(error instanceof Error && error.message === "Sign in to save companions."
+        ? error.message
+        : "Couldn't update this bookmark. Please try again.");
+    } finally {
+      setIsSavingBookmark(false);
     }
   };
   return (
-    <article className="companion-card" style={{ backgroundColor: color }}>
+    <article className="companion-card">
       <div className="flex justify-between items-center">
-        <div className="subject-badge">{subject}</div>
-        <button className="companion-bookmark" onClick={handleBookmark}>
+        <div className="flex items-center gap-3">
+          <div className="subject-icon" style={{ backgroundColor: color }}>
+            <Image src={`/icons/${subject}.svg`} alt="" width={24} height={24} />
+          </div>
+          <div className="subject-badge">{subject}</div>
+        </div>
+        <button
+          type="button"
+          className="companion-bookmark"
+          onClick={handleBookmark}
+          disabled={isSavingBookmark}
+          aria-label={isBookmarked ? `Remove ${name} from bookmarks` : `Bookmark ${name}`}
+          aria-pressed={isBookmarked}
+          title={isBookmarked ? "Remove bookmark" : "Save companion"}
+        >
           <Image
-            src={
-              bookmarked ? "/icons/bookmark-filled.svg" : "/icons/bookmark.svg"
-            }
-            alt="bookmark"
-            width={12.5}
-            height={15}
+            src={isBookmarked ? "/icons/bookmark-filled.svg" : "/icons/bookmark.svg"}
+            alt=""
+            width={15}
+            height={17}
           />
         </button>
       </div>
 
-      <h2 className="text-2xl font-bold">{name}</h2>
-      <p className="text-sm">{topic}</p>
-      <div className="flex items-center gap-2">
-        <Image
-          src="/icons/clock.svg"
-          alt="duration"
-          width={13.5}
-          height={13.5}
-        />
-        <p className="text-sm">{duration} minutes</p>
+      <div className="space-y-2">
+        <h2 className="text-xl font-bold tracking-tight text-foreground">{name}</h2>
+        <p className="text-sm leading-6 text-muted-foreground">{topic}</p>
       </div>
 
-      <Link href={`/companions/${id}`} className="w-full">
-        <button className="btn-primary w-full justify-center">
-          Launch Lesson
-        </button>
-      </Link>
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Image src="/icons/clock.svg" alt="" width={15} height={15} />
+          <span>{duration} min</span>
+        </div>
+        <Link href={`/companions/${id}`} className="btn-primary min-h-10 px-4">
+          Start lesson
+        </Link>
+      </div>
+      {bookmarkError && <p role="alert" className="text-xs font-medium text-destructive">{bookmarkError}</p>}
     </article>
   );
 };
