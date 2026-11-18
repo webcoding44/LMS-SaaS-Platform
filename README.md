@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![LMS Banner](image.png)
+![LMS Banner](image.jpeg)
 
 ![Next.js](https://img.shields.io/badge/Next.js-FullStack-black?style=for-the-badge&logo=next.js)
 ![Supabase](https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge)
@@ -74,27 +74,6 @@ Organized and trackable learning experience.
 
 ---
 
-## 🧠 AI Tutor Creation
-
-Users can build their own learning assistants.
-
-- Create custom AI tutors  
-- Define subject and teaching style  
-- Personalized AI behavior  
-- Reusable tutor system  
-
----
-
-## 🔎 Search & Discovery
-
-Quick access to learning content.
-
-- Search AI tutors  
-- Filter by topic or category  
-- Fast navigation system  
-
----
-
 ## 📱 Fully Responsive UI
 
 Modern and clean interface.
@@ -103,29 +82,6 @@ Modern and clean interface.
 - Tailwind CSS styling  
 - shadcn/ui components  
 - Smooth UX across devices  
-
----
-
-# 🛠️ Tech Stack
-
-## ⚛️ Frontend
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-- Shadcn UI
-
-## 🗄️ Backend & Database
-- Supabase (Database & Real-time data)
-
-## 🔐 Authentication
-- Clerk
-
-## 💳 Payments
-- Stripe
-
-## 🎙️ AI Voice
-- Vapi AI
 
 ---
 
@@ -154,7 +110,7 @@ npm install
 # Sentry
 SENTRY_AUTH_TOKEN=
 # Vapi
-NEXT_PUBLIC_VAPI_WEB_TOKEN=
+NEXT_PRIVATE_VAPI_WEB_TOKEN=
 
 # Clerk
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
@@ -177,29 +133,6 @@ npm run dev
 ```
 
 ---
-
-# 🏗️ System Architecture
-
-```text
-User
- ↓
-Next.js Frontend
- ↓
-API Routes / Server Actions
- ↓
-Supabase (Database)
- ↓
-Stripe (Payments)
- ↓
-Clerk (Auth)
- ↓
-Vapi AI (Voice Tutors)
- ↓
-Real-Time Learning Experience
-```
-
----
-
 # 🌟 Highlights
 
 ✔ AI Voice-Based Learning  
@@ -210,31 +143,6 @@ Real-Time Learning Experience
 ✔ Modern UI/UX Design  
 ✔ Secure Authentication  
 ✔ Payment Integration  
-
----
-
-# 💡 What This Project Demonstrates
-
-This project showcases skills in:
-
-- Full-stack SaaS development  
-- AI integration in education  
-- Voice AI systems  
-- Subscription-based architecture  
-- Real-time database design  
-- Modern UI development  
-- Production-ready Next.js apps  
-
----
-
-# 🚀 Future Improvements
-
-- Group learning rooms  
-- AI-generated course plans  
-- Video + voice hybrid tutoring  
-- Mobile application  
-- AI progress analytics  
-- Multi-language tutors  
 
 ---
 
