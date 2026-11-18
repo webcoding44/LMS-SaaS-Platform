@@ -65,7 +65,7 @@ const CompanionForm = () => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 rounded-2xl border border-border bg-white p-6 shadow-sm max-sm:p-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 rounded-2xl border border-border bg-card p-6 shadow-sm max-sm:p-4">
                 <div className="grid gap-5 sm:grid-cols-2">
                 <FormField
                     control={form.control}

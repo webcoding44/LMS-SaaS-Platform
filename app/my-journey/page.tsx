@@ -25,7 +25,7 @@ const Profile = async () => {
 
   return (
     <main>
-      <section className="flex flex-wrap items-center justify-between gap-6 rounded-2xl border border-border bg-white p-6 shadow-sm max-sm:p-5">
+      <section className="flex flex-wrap items-center justify-between gap-6 rounded-2xl border border-border bg-card p-6 shadow-sm max-sm:p-5">
         <div className="flex min-w-0 items-center gap-4">
           <Image
             src={user.imageUrl}

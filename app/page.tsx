@@ -25,7 +25,7 @@ const Page = async () => {
 
   return (
     <main>
-      <section className="flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-[#dce9e2] bg-gradient-to-br from-white via-white to-[#eaf2ed] p-8 shadow-sm max-sm:p-6">
+      <section className="flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-[#d5e2d7] bg-gradient-to-br from-[#fbfcf8] via-[#f6f9f3] to-[#e2eee4] p-8 shadow-sm max-sm:p-6">
         <div className="max-w-2xl space-y-3">
           <p className="flex items-center gap-2 text-sm font-semibold text-primary"><Sparkles size={16} /> A LITTLE MORE CURIOUS, EVERY DAY</p>
           <h1 className="text-4xl leading-tight max-sm:text-3xl">Learn something new, <span className="text-primary">your way.</span></h1>
@@ -36,7 +36,7 @@ const Page = async () => {
           </div>
         </div>
         <div aria-hidden="true" className="hidden size-44 shrink-0 items-center justify-center rounded-full bg-[#dcebe3] text-primary lg:flex">
-          <div className="flex size-32 items-center justify-center rounded-full border border-white bg-white shadow-sm">
+          <div className="flex size-32 items-center justify-center rounded-full border border-[#fbfcf8] bg-[#fbfcf8] shadow-sm">
             <BookOpen size={54} strokeWidth={1.5} />
           </div>
         </div>

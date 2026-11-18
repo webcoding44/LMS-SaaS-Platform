@@ -24,9 +24,9 @@ export default function RootLayout({
       <body className={`${bricolage.variable} antialiased`}>
         <ClerkProvider appearance={{ variables: {
           colorPrimary: "#21695c",
-          colorBackground: "#ffffff",
+          colorBackground: "#fbfcf8",
           colorText: "#20352f",
-          colorInputBackground: "#ffffff",
+          colorInputBackground: "#fbfcf8",
           colorInputText: "#20352f",
         } }}>
           <Navbar />

@@ -40,34 +40,34 @@
   --cta: #174e45;
   --cta-gold: #e9dfc9;
   --radius: 0.875rem;
-  --background: #f7f8f4;
+  --background: #f0f3ed;
   --foreground: #20352f;
-  --card: #ffffff;
+  --card: #fbfcf8;
   --card-foreground: #20352f;
-  --popover: #ffffff;
+  --popover: #fbfcf8;
   --popover-foreground: #20352f;
-  --secondary: #e8f1ec;
+  --secondary: #e1eee5;
   --secondary-foreground: #24574c;
-  --muted: #eff2ee;
+  --muted: #e9eee8;
   --muted-foreground: #5d6b65;
-  --accent: #e8f1ec;
+  --accent: #e1eee5;
   --accent-foreground: #24574c;
   --destructive: #b42338;
-  --border: #dfe6e1;
-  --input: #dfe6e1;
+  --border: #dce5dc;
+  --input: #dce5dc;
   --ring: #378778;
   --chart-1: #21695c;
   --chart-2: #c28b4d;
   --chart-3: #6f927c;
   --chart-4: #b56e5b;
   --chart-5: #87976a;
-  --sidebar: #ffffff;
+  --sidebar: #fbfcf8;
   --sidebar-foreground: #20352f;
   --sidebar-primary: #21695c;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e8f1ec;
+  --sidebar-accent: #e1eee5;
   --sidebar-accent-foreground: #24574c;
-  --sidebar-border: #dfe6e1;
+  --sidebar-border: #dce5dc;
   --sidebar-ring: #378778;
 }
 
@@ -108,7 +108,7 @@ body {
 
 @layer components {
   .navbar {
-    @apply sticky top-0 z-40 flex min-h-[76px] items-center justify-between border-b border-border/80 bg-white/95 px-8 backdrop-blur-md max-sm:min-h-[66px] max-sm:px-4;
+    @apply sticky top-0 z-40 flex min-h-[76px] items-center justify-between border-b border-border/80 bg-card/95 px-8 backdrop-blur-md max-sm:min-h-[66px] max-sm:px-4;
   }
 
   .nav-link {
@@ -124,7 +124,7 @@ body {
   }
 
   .btn-secondary {
-    @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-border bg-white px-4 py-2 text-sm font-semibold text-foreground transition hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+    @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
   }
 
   .btn-signin {
@@ -132,7 +132,7 @@ body {
   }
 
   .input {
-    @apply h-11 w-full rounded-xl border border-input bg-white px-3 text-sm text-foreground shadow-sm outline-none transition placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/10;
+    @apply h-11 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground shadow-sm outline-none transition placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/10;
   }
 
   textarea.input {
@@ -140,7 +140,7 @@ body {
   }
 
   .rounded-border {
-    @apply rounded-2xl border border-border bg-white shadow-sm;
+    @apply rounded-2xl border border-border bg-card shadow-sm;
   }
 
   .companions-grid {
@@ -148,7 +148,7 @@ body {
   }
 
   .companion-card {
-    @apply flex min-h-[270px] flex-col justify-between gap-5 rounded-2xl border border-border bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-900/5;
+    @apply flex min-h-[270px] flex-col justify-between gap-5 rounded-2xl border border-border bg-card p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-900/5;
   }
 
   .subject-badge {
@@ -156,11 +156,11 @@ body {
   }
 
   .companion-bookmark {
-    @apply flex size-9 items-center justify-center rounded-full border border-border bg-white transition hover:border-primary/40 hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50;
+    @apply flex size-9 items-center justify-center rounded-full border border-border bg-card transition hover:border-primary/40 hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50;
   }
 
   .companion-list {
-    @apply w-full overflow-hidden rounded-2xl border border-border bg-white p-5 shadow-sm max-sm:p-4;
+    @apply w-full overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm max-sm:p-4;
   }
 
   .cta-section {
@@ -168,7 +168,7 @@ body {
   }
 
   .cta-badge {
-    @apply inline-flex rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-secondary-foreground;
+    @apply inline-flex rounded-full bg-card px-3 py-1.5 text-xs font-semibold text-secondary-foreground;
   }
 
   .companion-limit {
@@ -176,7 +176,7 @@ body {
   }
 
   .companion-section {
-    @apply flex w-full flex-col items-center justify-center gap-5 rounded-2xl border border-border bg-white p-8 shadow-sm md:w-2/3;
+    @apply flex w-full flex-col items-center justify-center gap-5 rounded-2xl border border-border bg-card p-8 shadow-sm md:w-2/3;
   }
 
   .companion-avatar {
@@ -192,15 +192,15 @@ body {
   }
 
   .user-avatar {
-    @apply flex flex-col items-center gap-4 rounded-2xl border border-border bg-white p-6 shadow-sm max-sm:hidden;
+    @apply flex flex-col items-center gap-4 rounded-2xl border border-border bg-card p-6 shadow-sm max-sm:hidden;
   }
 
   .btn-mic {
-    @apply flex w-full flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-white py-6 text-sm font-semibold text-foreground shadow-sm transition hover:border-primary/40 hover:bg-secondary/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50 max-sm:py-4;
+    @apply flex w-full flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-card py-6 text-sm font-semibold text-foreground shadow-sm transition hover:border-primary/40 hover:bg-secondary/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50 max-sm:py-4;
   }
 
   .transcript {
-    @apply relative flex min-h-40 flex-1 flex-col items-center overflow-hidden rounded-2xl border border-border bg-white p-6 shadow-sm;
+    @apply relative flex min-h-40 flex-1 flex-col items-center overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm;
   }
 
   .transcript-message {
@@ -208,7 +208,7 @@ body {
   }
 
   .transcript-fade {
-    @apply pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-16 bg-gradient-to-t from-white to-transparent;
+    @apply pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-16 bg-gradient-to-t from-card to-transparent;
   }
 
   .subject-icon {
@@ -216,7 +216,7 @@ body {
   }
 
   .empty-state {
-    @apply flex min-h-56 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-white px-6 py-10 text-center;
+    @apply flex min-h-56 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-card px-6 py-10 text-center;
   }
 }
 

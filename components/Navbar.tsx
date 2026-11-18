@@ -47,7 +47,7 @@ const Navbar = () => {
                 </button>
             </div>
             {menuOpen && (
-                <div id="mobile-navigation" className="absolute left-0 right-0 top-full flex flex-col gap-3 border-b border-border bg-white px-4 py-4 shadow-lg md:hidden">
+                <div id="mobile-navigation" className="absolute left-0 right-0 top-full flex flex-col gap-3 border-b border-border bg-card px-4 py-4 shadow-lg md:hidden">
                     <NavItems onNavigate={() => setMenuOpen(false)} />
                     <SignedOut>
                         <SignInButton>
